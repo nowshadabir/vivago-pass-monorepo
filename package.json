@@ -1,0 +1,24 @@
+{
+  "name": "vivago-pass",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Zero-Knowledge password and secrets manager",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present"
+  },
+  "overrides": {
+    "@types/react": "19.2.15",
+    "@types/react-dom": "19.2.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/oxide-linux-x64-gnu": "4.3.0"
+  },
+  "optionalDependencies": {
+    "@tailwindcss/oxide-linux-x64-gnu": "^4.3.0"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "manifest_version": 3,
+  "name": "Vivago Pass",
+  "version": "1.0.0",
+  "description": "Zero-Knowledge password and secrets manager",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "http://localhost:3000/*",
+    "http://localhost:3001/*",
+    "https://*/*",
+    "http://*/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ],
+  "icons": {
+    "16": "logo.jpg",
+    "48": "logo.jpg",
+    "128": "logo.jpg"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Vivago Pass",
+    "default_icon": {
+      "16": "logo.jpg",
+      "48": "logo.jpg",
+      "128": "logo.jpg"
+    }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["webauthn-bridge.js"],
+      "matches": ["http://localhost:3000/*", "http://localhost:3001/*"]
+    },
+    {
+      "resources": ["logo.jpg"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vivago Pass</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="ambient" aria-hidden="true">
+    <div class="ambient-blob ambient-blob-a"></div>
+    <div class="ambient-blob ambient-blob-b"></div>
+  </div>
+
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <img src="logo.jpg" alt="" class="brand-logo" width="32" height="32" />
+        <div class="brand-copy">
+          <span class="brand-title">Vivago Pass</span>
+          <span id="user-email-pill" class="user-pill hidden"></span>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <button type="button" id="open-dashboard-btn" class="btn-ghost hidden" title="Open web vault">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Vault
+        </button>
+        <button type="button" id="logout-btn" class="btn-ghost btn-ghost-danger hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Sign out
+        </button>
+      </div>
+    </header>
+
+    <main id="login-screen" class="panel panel-auth">
+      <div class="auth-card">
+        <h1>Welcome back</h1>
+        <p class="muted">Unlock your zero-knowledge vault</p>
+        <form id="login-form">
+          <label class="field">
+            <span>Email</span>
+            <input type="email" id="email" required placeholder="you@example.com" autocomplete="username" />
+          </label>
+          <label class="field">
+            <span>Master password</span>
+            <input type="password" id="password" required placeholder="••••••••" autocomplete="current-password" />
+          </label>
+          <div id="login-error" class="alert alert-error hidden"></div>
+          <button type="submit" id="login-btn" class="btn btn-primary">Sign in</button>
+        </form>
+      </div>
+    </main>
+
+    <main id="vault-screen" class="panel panel-vault hidden">
+      <div class="vault-toolbar">
+        <div id="search-wrap" class="search-wrap">
+          <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="search" id="search" placeholder="Search vault…" autocomplete="off" spellcheck="false" />
+          <button type="button" id="search-clear" class="search-clear hidden" title="Clear search and show all items" aria-label="Clear search">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+        </div>
+        <div id="category-tabs" class="category-tabs" role="tablist"></div>
+      </div>
+
+      <div class="vault-layout">
+        <aside class="vault-list-pane">
+          <div id="vault-loading" class="vault-loading hidden" aria-live="polite">
+            <div class="loading-spinner" aria-hidden="true"></div>
+            <span>Loading vault…</span>
+          </div>
+          <div id="items-list" class="items-scroll vivago-scrollbar" tabindex="0" role="listbox" aria-label="Vault items"></div>
+        </aside>
+
+        <section class="vault-detail-pane">
+          <div id="detail-placeholder" class="detail-empty">
+            <div class="detail-empty-icon">🔐</div>
+            <p>Select an item</p>
+            <span class="muted">View, copy, or autofill credentials</span>
+          </div>
+
+          <article id="detail-pane" class="detail-panel hidden">
+            <header class="detail-head">
+              <div>
+                <h2 id="detail-title" class="detail-name">—</h2>
+                <span id="detail-badge" class="type-chip">login</span>
+              </div>
+              <button type="button" id="edit-btn" class="btn-ghost btn-sm">Edit</button>
+            </header>
+
+            <div id="detail-view-fields" class="detail-body vivago-scrollbar"></div>
+
+            <div id="detail-edit-fields" class="detail-body vivago-scrollbar hidden">
+              <label class="field">
+                <span>Title</span>
+                <input type="text" id="edit-name" required />
+              </label>
+              <div id="edit-type-fields"></div>
+              <label class="field">
+                <span>Note</span>
+                <textarea id="edit-note" rows="3"></textarea>
+              </label>
+              <div class="edit-actions">
+                <button type="button" id="save-edit-btn" class="btn btn-primary">Save</button>
+                <button type="button" id="cancel-edit-btn" class="btn btn-secondary">Cancel</button>
+              </div>
+            </div>
+
+            <footer class="detail-foot">
+              <button type="button" id="detail-autofill-btn" class="btn btn-primary hidden">Autofill on page</button>
+            </footer>
+          </article>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+  <script src="popup.js"></script>
+</body>
+</html>
